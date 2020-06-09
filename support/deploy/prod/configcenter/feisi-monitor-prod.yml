@@ -1,0 +1,100 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.3.12.41:3306/gb4?useUnicode=true&characterEncoding=utf-8&nullCatalogMeansCurrent=true
+    username: root
+    password: Test123
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+
+  redis:
+    database: 3
+    host: 10.3.12.44
+    password: Tstar_123
+    port: 6379
+    timeout: 3000
+    jedis:
+      pool:
+        max-idle: 100
+        min-idle: 0
+        max-wait: 5000
+  cache:
+    type: redis
+
+  mail:
+    host: smtp.tiza.com.cn
+    port: 25
+    username: noticecenter@tiza.com.cn
+    password: tianze123-
+    properties:
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 3000
+      mail.smtp.writetimeout: 5000
+
+  quartz:
+    job-store-type: jdbc
+#    overwrite-existing-jobs: true
+    jdbc:
+      initialize-schema: never
+    properties:
+      org.quartz.jobStore.isClustered: true
+      org.quartz.scheduler.instanceId: AUTO
+
+
+
+beetlsql:
+  basePackage: cn.com.tiza.dao
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+beetl-beetlsql:
+  dev: true
+
+application:
+  pool:
+    maxTotal: 500
+    defaultMaxPerRoute: 3000
+    connectTimeout: 10000
+    connectionRequestTimeout: 5000
+    socketTimeout: 150000
+    validateAfterInactivity: 3000
+    staleConnectionCheckEnabled: true
+  sms:
+    url: https://rtcsms.cn-north-1.myhuaweicloud.com:10743/sms/batchSendSms/v1
+    appKey: 7HEqUso3mN9O7xM74CI3SLSHM7FW
+    appSecret: 1y3wa84Ni699pgnUF5p8B41bV9Nh
+    sender: 8819120639144
+    alarmTemplateId: 474c795ec81b40d1a9eb77c7a4248741
+    faultTemplateId: 0707c59f13534fc0b8eb4d9db30f33c4
+    fenceTemplateId: 8c0c9994da3645c99974bbaff2ec7168
+    signature: 天泽信息
+    maxTimes: 5
+    minus: 30
+  jpush:
+    appKey: b8f8cc414748d7c03e31aeb0
+    masterSecret: 782dd002afdfb62972f3af1b
+  amap:
+    geocoder: https://restapi.amap.com/v3/geocode/geo?address=%s&key=%s
+    regeocoder: https://restapi.amap.com/v3/geocode/regeo?location=%s&key=%s
+    key: 3bd8d26050edd24d2af4ea51bb1cde9b
+  notice:
+    from: noticecenter@tiza.com.cn
+#  kafka:
+    listener_topics: tiza_gprs10_alarmdata,tiza_gprs11_alarmdata
+    bootstrapServers: 'tstar-gw01:9092,tstar-gw02:9092'
+    protocol: SASL_PLAINTEXT
+    mechanism: GSSAPI
+    serviceName: kafka
+    keyTab: "/etc/security/keytabs/kafka_client.keytab"
+    principal: "kafka-client-1@EXAMPLE.COM"
+    enable: false
+    groupId: 'alarm-group-feisi'
+    offsetReset: 'earliest'
+  quartzjob:
+    vehicleServiceExpireCron: 0 0 2 1 * ?
+    controllerLockCron: 0 0/5 * * * ?
+    maintenanceLogCron: 0 0 0 /1 * ?
+    forwardDataCompressCron: 0 0 23 * * ?

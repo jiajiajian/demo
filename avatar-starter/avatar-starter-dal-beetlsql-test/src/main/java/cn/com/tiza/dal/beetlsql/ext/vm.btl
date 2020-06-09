@@ -1,0 +1,27 @@
+package ${package};
+
+${imports}
+import lombok.Data;
+${implSerializable?"import java.io.Serializable;"}
+/**
+* ${comment}
+* gen by beetlsql ${date(),"yyyy-MM-dd"}
+* @author tiza
+*/
+@Data
+public class ${className}VM ${!isEmpty(ext)?"extends "+ext} ${implSerializable?"implements Serializable"} {
+
+	<%for(attr in attrs){
+			if(!isEmpty(attr.comment)){%>
+	/**
+	${attr.comment}
+	*/
+	<%		}%>
+	private ${attr.type} ${attr.name} ;
+	<%}%>
+
+	public ${className}VM() {
+	}
+
+
+}

@@ -1,0 +1,50 @@
+server:
+  port: 8100
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.72:3306/gb4_dev?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: Glmysql1926
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+  redis:
+    database: 2
+    host: 192.168.101.71
+    password: Glmysql134
+    port: 6379
+    timeout: 3000
+    jedis:
+      pool:
+        max-idle: 100
+        min-idle: 0
+        max-wait: 5000
+  cache:
+    type: redis
+
+beetlsql:
+  basePackage: cn.com.tiza.dao
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+beetl-beetlsql:
+  dev: true
+
+time:
+  offline: 300000
+  check: 21600000
+  executeDelay: 300000
+
+file:
+  ftpPath: /upgrade/
+  disk:
+    excel-path: D:/app/excel/
+    app-path: D:/app/app/
+
+application:
+  terminalType: gprs10
+  apiKey: 5EC1BE4458123CA92CAD0567FF7EE4E6

@@ -1,0 +1,60 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+      routes:
+      - id: SystemService
+        uri: lb://feisi-system
+        predicates:
+          - Path=/api/system/**
+        filters:
+          - StripPrefix=2
+      - id: VehicleService
+        uri: lb://feisi-vehicle
+        predicates:
+          - Path=/api/vehicle/**
+        filters:
+          - StripPrefix=2
+      - id: TerminalService
+        uri: lb://feisi-terminal
+        predicates:
+          - Path=/api/terminal/**
+        filters:
+          - StripPrefix=2
+      - id: ActivitiService
+        uri: lb://feisi-activiti
+        predicates:
+          - Path=/api/activiti/**
+        filters:
+          - StripPrefix=2
+      - id: MonitorService
+        uri: lb://feisi-monitor
+        predicates:
+          - Path=/api/monitor/**
+        filters:
+          - StripPrefix=2
+      - id: FilesService
+        uri: lb://feisi-files
+        predicates:
+          - Path=/api/files/**
+        filters:
+          - StripPrefix=2
+      - id: MessageService
+        uri: lb://feisi-message
+        predicates:
+          - Path=/api/message/**
+        filters:
+          - StripPrefix=2
+
+gate:
+  ignore:
+    startWith: /system/auth
+
+sso:
+  enabled: true

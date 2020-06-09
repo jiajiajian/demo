@@ -1,0 +1,20 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.72:3306/gb4_dev?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: Glmysql1926
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+
+beetlsql:
+  basePackage: cn.com.tiza.dao
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+beetl-beetlsql:
+  dev: true
+

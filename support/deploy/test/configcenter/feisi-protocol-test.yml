@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.72:3306/gb4_dev?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: Glmysql1926
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+  redis:
+    database: 7
+    host: 192.168.103.202
+    password:
+    port: 6379
+    timeout: 3000
+    jedis:
+      pool:
+        max-idle: 100
+        min-idle: 0
+        max-wait: 5000
+  cache:
+    type: redis
+
+beetlsql:
+  basePackage: cn.com.tiza.dao
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+beetl-beetlsql:
+  dev: true
+
+application:
+  tstar:
+    terminalType: gb17691test
+  quartzjob:
+    forwardDataCompressCron: 0 0 23 * * ?
+  forwardData:
+    directory: /opt/web/protocol/excel/
+    compressFileName: 转发数据
+  fwp:
+    baseUrl: http://${FWP_IP:localhost}:${FWP_PORT:8100}/fwp
+    token: D9F72BC107314C37AF771DB94C30E5B7
+  pool:
+    maxTotal: 500
+    defaultMaxPerRoute: 3000
+    connectTimeout: 10000
+    connectionRequestTimeout: 5000
+    socketTimeout: 150000
+    validateAfterInactivity: 3000
+    staleConnectionCheckEnabled: true

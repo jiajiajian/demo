@@ -1,0 +1,48 @@
+package ${package};
+
+${imports}
+import org.springframework.stereotype.Component;
+
+import cn.com.tiza.domain.${className};
+import cn.com.tiza.service.dto.${className}Dto;
+import cn.com.tiza.web.rest.vm.${className}VM;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+* ${comment} Mapper
+* gen by beetlsql ${date(),"yyyy-MM-dd"}
+* @author tiza
+*/
+@Component
+public class ${className}Mapper {
+
+    public ${className} dtoToEntity(${className}Dto dto) {
+        if(dto == null) {
+            return null;
+        }
+        ${className} entity = new ${className}();
+        <%for(attr in attrs){%>
+        entity.set${attr.methodName}(dto.get${attr.methodName}());
+        <%}%>
+        return entity;
+    }
+
+    public ${className}VM toVM(${className} entity) {
+        if(entity == null) {
+            return null;
+        }
+        ${className}VM vm = new ${className}VM();
+        <%for(attr in attrs){%>
+        vm.set${attr.methodName}(entity.get${attr.methodName}());
+        <%}%>
+        return vm;
+    }
+
+    public List<${className}VM> entitiesToVMList(List<${className}> entities) {
+        return entities.stream()
+                .map(this::toVM)
+                .collect(Collectors.toList());
+    }
+}

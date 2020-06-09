@@ -1,0 +1,41 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.3.12.41:3306/gb4?useUnicode=true&characterEncoding=utf-8&nullCatalogMeansCurrent=true
+    username: root
+    password: Test123
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+  redis:
+    database: 3
+    host: 10.3.12.44
+    password: Tstar_123
+    port: 6379
+    timeout: 3000
+    jedis:
+      pool:
+        max-idle: 100
+        min-idle: 0
+        max-wait: 5000
+  cache:
+    type: redis
+
+beetlsql:
+  basePackage: cn.com.tiza.dao
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+beetl-beetlsql:
+  dev: true
+
+time:
+  offline: 300000
+  check: 21600000
+  executeDelay: 300000
+
+application:
+  terminalType: gprs10
+  apiKey: 5EC1BE4458123CA92CAD0567FF7EE4E6

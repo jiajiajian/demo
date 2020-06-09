@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.com.tiza.feisi</groupId>
+        <artifactId>avatar-feisi</artifactId>
+        <version>${revision}</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <artifactId>avatar-starter</artifactId>
+    <name>avatar-starter</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+    </dependencies>
+    <modules>
+        <module>avatar-starter-dal-beetlsql</module>
+        <module>avatar-starter-core</module>
+        <module>avatar-starter-jwt</module>
+        <module>avatar-starter-errors</module>
+        <module>avatar-starter-dal-beetlsql-test</module>
+        <module>avatar-starter-jsonmapper</module>
+        <module>avatar-starter-webconfig</module>
+        <module>avatar-starter-excel</module>
+    </modules>
+</project>

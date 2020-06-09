@@ -1,0 +1,31 @@
+package ${package};
+${imports}
+import lombok.Data;
+import java.io.Serializable;
+import org.beetl.sql.core.annotatoin.AutoID;
+import org.beetl.sql.core.annotatoin.AssignID;
+
+/**
+* ${comment}
+* gen by beetlsql ${date(),"yyyy-MM-dd"}
+* @author tiza
+*/
+@Data
+@Table(name="${table}")
+public class ${className} ${!isEmpty(ext)?"extends "+ext} implements Serializable {
+
+	@AutoID
+	@AssignID("simple")
+	<%for(attr in attrs){
+			if(!isEmpty(attr.comment)){%>
+    /**
+     * ${attr.comment}
+     */
+	<%		}%>
+    private ${attr.type} ${attr.name} ;
+	<%}%>
+	
+    public ${className}() {
+    }
+
+}

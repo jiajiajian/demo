@@ -1,0 +1,81 @@
+spring:
+  application:
+    name: feisi-terminal
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+    prefer-ip-address: true
+    status-page-url-path: /swagger-ui.html
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+# development environment
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+#      fail-fast: true
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: config-server
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://admin:pwd@localhost:8761/eureka/
+
+logging:
+  level:
+    root: DEBUG
+
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      profile: test
+      label: feisi
+      discovery:
+        enabled: true
+        service-id: config-server
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${REGISTRY_HOST}:${REGISTRY_PORT}/eureka/
+
+logging:
+  level:
+    root: DEBUG
+
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      label: feisi
+      profile: prod
+      discovery:
+        enabled: true
+        service-id: config-server
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${REGISTRY_MASTER_HOST}:${REGISTRY_PORT}/eureka/,http://${REGISTRY_BACKUP_HOST}:${REGISTRY_PORT}/eureka/
+
+logging:
+  level:
+    root: ERROR

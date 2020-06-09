@@ -1,0 +1,79 @@
+package ${package};
+
+import lombok.extern.slf4j.Slf4j;
+import org.beetl.sql.core.engine.PageQuery;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import cn.com.tiza.domain.${className};
+import cn.com.tiza.service.dto.${className}Dto;
+import cn.com.tiza.service.dto.${className}Query;
+import cn.com.tiza.service.mapper.${className}Mapper;
+import cn.com.tiza.web.rest.vm.${className}VM;
+import cn.com.tiza.service.${className}Service;
+
+import java.util.List;
+
+/**
+* ${comment} Controller
+* gen by beetlsql ${date(),"yyyy-MM-dd"}
+* @author tiza
+*/
+@Slf4j
+@RestController
+public class ${className}Controller {
+
+    @Autowired
+    private ${className}Service ${lowClassName}Service;
+
+    @Autowired
+    private ${className}Mapper ${lowClassName}Mapper;
+
+    @GetMapping
+    @Timed
+    public ResponseEntity<List<${className}VM>> list(${className}Query query) {
+        PageQuery pageQuery = ${lowClassName}Service.findAll(query);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(pageQuery);
+        return new ResponseEntity(${lowClassName}Mapper.entitiesToVMList(pageQuery.getList()), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}")
+    @Timed
+    public ResponseEntity<${className}VM> get(@PathVariable Long id) {
+        return ResponseUtil.wrapOrNotFound(${lowClassName}Service.get(id)
+                        .map(obj -> ${lowClassName}Mapper.toVM(obj)));
+    }
+
+    @PostMapping
+    @Timed
+    public ResponseEntity create(@RequestBody @Valid ${className}Dto dto) {
+        ${className} newObj = ${lowClassName}Service.create(dto);
+        return ResponseEntity.ok(newObj);
+    }
+
+    @PutMapping("{id}")
+    @Timed
+    public ResponseEntity update(@PathVariable Long id, @RequestBody @Valid ${className}Dto dto) {
+        Optional<${className}> updatedObj = ${lowClassName}Service.update(id, dto);
+        return ResponseUtil.wrapOrNotFound(updatedObj);
+    }
+
+    @DeleteMapping("{id}")
+    @Timed
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        ${lowClassName}Service.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping()
+    @Timed
+    public ResponseEntity<Void> delete(@RequestParam Long[] ids) {
+        ${lowClassName}Service.delete(ids);
+        return ResponseEntity.ok().build();
+    }
+}

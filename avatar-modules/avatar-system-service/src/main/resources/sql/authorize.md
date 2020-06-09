@@ -1,0 +1,16 @@
+deleteByRoleId
+===
+DELETE FROM base_authorize 
+WHERE 
+AUTHORIZE_OBJECT_ID = #roleId#
+
+selectByRoleId
+===
+SELECT PERMISSION_ID permissionId 
+FROM base_authorize 
+WHERE AUTHORIZE_OBJECT_TYPE = 0 
+AND 
+AUTHORIZE_OBJECT_ID = #roleId#
+AND PERMISSION_TYPE = 3
+AND CHECK_STATUS = 1
+

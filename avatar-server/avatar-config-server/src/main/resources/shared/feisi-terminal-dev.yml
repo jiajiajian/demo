@@ -1,0 +1,46 @@
+server:
+  port: 8106
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.72:3306/gb4_dev?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: Glmysql1926
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+  redis:
+    database: 10
+    host: 192.168.103.202
+    password:
+    port: 6379
+    timeout: 3000
+    jedis:
+      pool:
+        max-idle: 100
+        min-idle: 0
+        max-wait: 5000
+  cache:
+    type: redis
+
+beetlsql:
+  basePackage: cn.com.tiza
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+beetl-beetlsql:
+  dev: true
+
+application:
+  command:
+    enableRetry: true
+    expire: 8
+    retryNum: 3
+  kafka:
+    cmd_topics: tiza_gprs11_cmdresp
+    bootstrapServers: 'glcs73:9092,glcs74:9092'
+    protocol: SASL_PLAINTEXT
+    mechanism: GSSAPI
+    serviceName: kafka
+    enable: false
+    groupId: 'cmd-group-gprs11'
+    offsetReset: 'latest'

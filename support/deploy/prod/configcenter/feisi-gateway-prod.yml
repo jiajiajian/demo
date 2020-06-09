@@ -1,0 +1,60 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+      routes:
+      - id: SystemService
+        uri: lb://feisi-system
+        predicates:
+          - Path=/api/system/**
+        filters:
+          - StripPrefix=2
+      - id: VehicleService
+        uri: lb://feisi-vehicle
+        predicates:
+          - Path=/api/vehicle/**
+        filters:
+          - StripPrefix=2
+      - id: TerminalService
+        uri: lb://feisi-terminal
+        predicates:
+          - Path=/api/terminal/**
+        filters:
+          - StripPrefix=2
+      - id: ActivitiService
+        uri: lb://feisi-activiti
+        predicates:
+          - Path=/api/activiti/**
+        filters:
+          - StripPrefix=2
+      - id: MonitorService
+        uri: lb://feisi-monitor
+        predicates:
+          - Path=/api/monitor/**
+        filters:
+          - StripPrefix=2
+      - id: FilesService
+        uri: lb://feisi-files
+        predicates:
+          - Path=/api/files/**
+        filters:
+          - StripPrefix=2
+      - id: WebsocketService
+        uri: lb:ws://feisi-message
+        predicates:
+          - Path=/websocket/**
+
+gate:
+  ignore:
+    startWith: /system/auth,/activiti
+
+auth:
+  jwt:
+    # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+    base64-secret: NjliMjMwMzg3YzM4NmE1MTM0OWJjOWE3NTQxNjk1MWViOTlmMDYzMTc5YTA2Mjg1NjMwNzUyNzM2OWFlOGQ2NWY0M2NiYmM0MThkZDM1ODRkNTgzOGFlM2Y5YWU4ZWIwYWQ4ZDY2ODg1ZTIxNGQxNjUwNjljZDgyMWQyMzRiNWQ=
+    # Token is valid 24 hours
+    token-validity-in-seconds: 86400
+    token-validity-in-seconds-for-remember-me: 2592000

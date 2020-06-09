@@ -1,0 +1,70 @@
+package ${package};
+
+${imports}
+import lombok.extern.slf4j.Slf4j;
+import org.beetl.sql.core.engine.PageQuery;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import cn.com.tiza.domain.${className};
+import cn.com.tiza.service.dto.${className}Dto;
+import cn.com.tiza.service.dto.${className}Query;
+import cn.com.tiza.service.mapper.${className}Mapper;
+import cn.com.tiza.web.rest.vm.${className}VM;
+import cn.com.tiza.dao.${className}Dao;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+* ${comment} Service
+* gen by beetlsql ${date(),"yyyy-MM-dd"}
+* @author tiza
+*/
+@Slf4j
+@Service
+@Transactional
+public class ${className}Service {
+
+    @Autowired
+    private ${className}Dao ${lowClassName}Dao;
+
+    @Autowired
+    private ${className}Mapper ${lowClassName}Mapper;
+
+    public PageQuery<${className}> findAll(${className}Query query) {
+        PageQuery pageQuery = query.toPageQuery();
+        ${lowClassName}Dao.pageQuery(pageQuery);
+        return pageQuery;
+    }
+
+    public Optional<${className}> get(Long id) {
+        return Optional.ofNullable(${lowClassName}Dao.single(id));
+    }
+
+    public ${className} create(${className}Dto command) {
+        ${className} entity = ${lowClassName}Mapper.dtoToEntity(command);
+        ${lowClassName}Dao.insert(entity);
+        return entity;
+    }
+
+    public Optional<${className}> update(Long id, ${className}Dto command) {
+        return get(id).map(entity -> {
+                            <%for(attr in attrs){%>
+                            entity.set${attr.methodName}(command.get${attr.methodName}());
+                            <%}%>
+                            return entity;
+                        });
+    }
+
+    public void delete(Long id) {
+        ${lowClassName}Dao.deleteById(id);
+    }
+
+    public void delete(Long[] ids) {
+        for (Long id : ids) {
+            delete(id);
+        }
+    }
+}

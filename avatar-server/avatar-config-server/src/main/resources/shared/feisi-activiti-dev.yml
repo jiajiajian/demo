@@ -1,0 +1,28 @@
+server:
+  port: 8108
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.72:3306/gb4_dev?useUnicode=true&characterEncoding=utf-8&nullCatalogMeansCurrent=true
+    username: root
+    password: Glmysql1926
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  activiti:
+    check-process-definitions: false
+    database-schema-update: false
+    db-identity-used: false
+
+
+beetlsql:
+  basePackage: cn.com.tiza.dao
+  dbStyle: org.beetl.sql.core.db.MySqlStyle
+
+beetl-beetlsql:
+  dev: true
+
+application:

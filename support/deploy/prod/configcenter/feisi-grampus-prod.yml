@@ -1,0 +1,19 @@
+application:
+  grampus:
+    dataInterface: https://10.3.12.62:8888/rest/v1
+    tablePrefix: tiza_
+    trackData: _trackdata
+    rawData: _rawdata
+    cmdInterface: https://10.3.12.62:8899/v1/cmd
+  pool:
+    maxTotal: 500
+    defaultMaxPerRoute: 3000
+    connectTimeout: 10000
+    connectionRequestTimeout: 5000
+    socketTimeout: 150000
+    validateAfterInactivity: 3000
+    staleConnectionCheckEnabled: true
+  upgrade:
+    timeLimit: 1
+    apiKey: 7F6F8B56950E2899DA1CCA25F9DD8D38
+    terminalType: tiza_g6update
